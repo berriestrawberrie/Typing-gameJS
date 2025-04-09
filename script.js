@@ -40,6 +40,7 @@ let score = 0;
 
 //Initializing time
 let time = 10;
+let run = true;
 
 
 function addWordToDOM(){
@@ -53,6 +54,8 @@ function addWordToDOM(){
 }
 
 function updateScore(){
+  //TURN THE GAME TIMER OFF 
+  run = false;
   //CHECK IF THE WORD MATCHES DOM
   if(text.value == randomWord){
     score += 1;
@@ -83,13 +86,24 @@ function updateTime(){
 
 }
 
+function setDiff(){
+  //GET DIFF SETTING
+  let hardness = document.getElementById("difficulty").value;
+  console.log(hardness);
+}
+
 //START THE GAME
 addWordToDOM();
-updateTime();
+
 
 
 function playGame(){
+  //RUN THE TIMER ONCE PER GAME
+   if(run == true){
+    updateTime();
+   }
     updateScore();
+    
 }
 
 text.addEventListener("input", playGame);
