@@ -40,3 +40,56 @@ let score = 0;
 
 //Initializing time
 let time = 10;
+
+
+function addWordToDOM(){
+
+  //PULL A RANDOM WORD
+  randomWord = words[Math.floor(Math.random()*words.length)];
+
+  //ADD WORD TO DOM
+  word.innerText = randomWord;
+
+}
+
+function updateScore(){
+  //CHECK IF THE WORD MATCHES DOM
+  if(text.value == randomWord){
+    score += 1;
+    scoreEl.innerText = score;
+    time += 5;
+    text.value = "";
+    addWordToDOM();
+  }else{
+    score = score;
+    scoreEl.innerText = score;
+  }
+}
+
+function updateTime(){
+
+  //SET INTERVAL FOR TIME
+  setInterval(
+    function(){
+
+      if(time > 0 ){
+        time -= 1;
+        timeEl.innerText = `${time}s`;
+      }else{
+        endgameEl.style.display = "flex";
+      }
+    },
+    1000);
+
+}
+
+//START THE GAME
+addWordToDOM();
+updateTime();
+
+
+function playGame(){
+    updateScore();
+}
+
+text.addEventListener("input", playGame);
