@@ -41,10 +41,31 @@ let score = 0;
 //Initializing time
 let time = 10;
 let run = true;
+let getDiff = "easy";
 
+
+function setDiff(){
+  //GET DIFF SETTING
+  getDiff = document.getElementById("difficulty").value;
+  //CHANGE GAME TIMER 
+  switch(getDiff){
+    case "easy":
+      timeEl.innerText ="20s";
+      time = 20;
+      break;
+    case "medium":
+      timeEl.innerText ="15s";
+      time = 15;
+      break;
+    case "hard":
+      timeEl.innerText ="10s";
+      time = 10;
+      break;
+  }
+
+}
 
 function addWordToDOM(){
-
   //PULL A RANDOM WORD
   randomWord = words[Math.floor(Math.random()*words.length)];
 
@@ -60,8 +81,10 @@ function updateScore(){
   if(text.value == randomWord){
     score += 1;
     scoreEl.innerText = score;
+    //ADD 5 SECS TO TIMER
     time += 5;
     text.value = "";
+    //PICK A NEW WORD
     addWordToDOM();
   }else{
     score = score;
@@ -77,8 +100,9 @@ function updateTime(){
 
       if(time > 0 ){
         time -= 1;
-        timeEl.innerText = `${time}s`;
+        timeEl.innerText =`${time}s`;
       }else{
+        //IF TIMER IS OUT DISPLAY END GAME
         endgameEl.style.display = "flex";
       }
     },
@@ -86,16 +110,9 @@ function updateTime(){
 
 }
 
-function setDiff(){
-  //GET DIFF SETTING
-  let hardness = document.getElementById("difficulty").value;
-  console.log(hardness);
-}
 
 //START THE GAME
 addWordToDOM();
-
-
 
 function playGame(){
   //RUN THE TIMER ONCE PER GAME
